@@ -140,7 +140,7 @@ func resourceManifestCreate(d *schema.ResourceData, m interface{}) error {
 	}
 	defer cleanup()
 
-	cmd := kubectl(m, kubeconfig, "apply", "-f", "-")
+	cmd := kubectl(m, kubeconfig, "apply", "--validate=false","-f", "-")
 	cmd.Stdin = strings.NewReader(d.Get("content").(string))
 	if err := run(cmd); err != nil {
 		return err
